@@ -1,5 +1,5 @@
 // id, name, visited
-use "travellist";
+use travellist;
 
 db.places.insert([
     {name: "Berlin", visited: 0},
