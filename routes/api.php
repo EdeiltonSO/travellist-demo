@@ -18,58 +18,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/places', function() {
-    return Place::get();
-});
+Route::get('/places', 'PlaceController@index');
+Route::post('/places', 'PlaceController@store');
+Route::put('/places/{id}', 'PlaceController@update');
+Route::patch('/places/{id}', 'PlaceController@patchUpdate');
+Route::delete('/places/{id}', 'PlaceController@destroy');
 
-Route::post('/places', function(Request $request) {
-    $place = new Place();
-    $place->name = $request->name;
-    $place->visited = $request->visited;
+// Route::resource('places-resource', 'PlaceResourceController');
 
-    $place->save();
+// Route::get('/places/search', 'API\PlaceResourceController@search');
+// Route::apiResource('places-resource', 'API\PlaceResourceController');
+// Route::apiResource('users', 'API\UsersController');
 
-    return $place;
-});
+// Route::apiResource([
+//     'places-resource' => 'API\PlaceResourceController',
+//     'users' => 'API\UsersController',
+// ]);
 
-//Edwildson
-Route::put('/places/{id}', function(Request $request, $id) {
-    $place = Place::find($id);
-    $place->name = $request->name ? $request->name : $place->name;
-    $place->visited = $request->visited ? $request->visited : $place->visited;
-    $place->save();
-
-    return $place;
-});
-
-
-//Roxo
-Route::patch('/places/{id}', function(Request $request, $id) {
-
-    $place = Place::find($id);
-
-    if ($place->name !== $request->name) {
-        $place->name = $request->name;
-    }
-
-    if ($place->visited !== $request->visited) {
-        $place->visited = $request->visited;
-    }
-
-    $place->save();
-
-    return $place;
-});
-
-//Pink vulgo Adson
-Route::delete('/places/{id}', function($id) {
-
-    $place = Place::find($id);
-
-    if ($place) {
-        $place->delete();
-        return response('');
-    }
-
-    return response('Recurso não existe', 404);
-});
+// Route::apiResource('places-resource', 'API\PlaceResourceController')->except([
+//     'store'
+// ])->parameters(['places-resource' => 'id']);
