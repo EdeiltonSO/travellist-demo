@@ -23,9 +23,21 @@ class Place extends Model
     //     'visited',
     // ];
 
-    // protected $fillable = [
-
-    // ];
+    protected $fillable = [
+        'name', 'visited', 'user_id',
+    ];
 
     // protected $timestamp = false;
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }
+
+// App\Place(['name' => 'Cuiaba', 'visited' => 0, 'user_id' => $user->id]);
+/**
+ * $user = App/User::find($id);
+ * $user->place()->create(['name' => 'Cuiaba', 'visited' => 0]);
+ *
+ * $user->place //Obter a relação
+ */
