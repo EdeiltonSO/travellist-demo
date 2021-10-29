@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PlacesPost;
 use App\Place;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class PlaceController extends Controller
 
 
 
-    public function store(Request $request) {
+    public function store(PlacesPost $request) {
         $place = new Place();
         $place->name = $request->name;
         $place->visited = $request->visited;
